@@ -11,6 +11,11 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  padding: 0;
 }
 
 a {
@@ -24,15 +29,28 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  padding: 0;
+}
+footer {
+  display: flex;
+  justify-content: space-around;
+  width: 100vw;
+  padding: 0;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+div {
+  display: flex;
+  width: 90vw;
+  justify-content: space-evenly;
+  border-bottom:#636363;
 }
 
 button {
