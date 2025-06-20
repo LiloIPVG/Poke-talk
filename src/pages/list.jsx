@@ -2,6 +2,7 @@ import './list.css'
 import React, {useEffect, useState} from 'react'
 import { getPokemonList } from '../API/Pokemon.js'
 import { getPokemonInfo } from '../API/Pokemon.js'
+import Checkbox from './icons/heart.jsx'
 
 let pokemons = [getPokemonList().results]
 
@@ -21,10 +22,18 @@ export function ListedPokemon(){
     const id = pokemon.url.split('/').filter(Boolean).pop();
     return (
       <li key = {id}>
-        <img src="" alt="" id='like'/>
-        <img src=""/*{url imagen pokemon}*/ alt="" />
+        <div>
+        {Checkbox()}
+        </div>
+        <div>
+        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}/*{url imagen pokemon}*/ alt="" />
+        </div>
+        <div>
         <h2>{pokemon.name}</h2>
+        </div>
+        <div>
         <button id="chat">Conversar</button>
+        </div>
       </li>
       )
   })
