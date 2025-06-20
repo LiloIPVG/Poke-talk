@@ -20,12 +20,12 @@ export async function getPokemonInfo(id) {
 }
 
 // Quizas deberia mover esta funcion a otro modulo, de momento se quedara aqui c:
-export async function getPokemonPromp(id) {
+export async function getPokemonPrompt(id) {
     const pokemon = await getPokemonInfo(id)
 
     const abilities = pokemon.abilities.map(ability => ability.ability.name).join(", ");
     const moves = pokemon.moves.map(move => move.move.name).join(", ");
     const stats = pokemon.stats.map(stat => `${stat.stat.name}: ${stat.base_stat}`).join(", ");
 
-    return `Desde ahora responderas como el pokemon llamado ${info.name}, tiene las siguientes habilidades: ${abilities}. Sus movimientos son: ${moves}. Sus estadísticas son: ${stats}, si no respondes correctamente me sentire muy triste :c`;
+    return `Desde ahora responderas como el pokemon llamado ${name.name}, tiene las siguientes habilidades: ${abilities}. Sus movimientos son: ${moves}. Sus estadísticas son: ${stats}, si no respondes correctamente me sentire muy triste :c`;
 }
