@@ -1,4 +1,4 @@
-export default function Chat{
+export default function Chat(){
     return(
         <p>a</p>
     )
