@@ -1,7 +1,7 @@
 import fetchData from "./handleErrors";
 
 const errorMessage = "Lo siento, no pude procesar tu mensaje. Por favor, inténtalo de nuevo más tarde."
-const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=";
+const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key="
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_KEY
 
 // Este necesita de un historial para preparar al modelo con las preguntas anteriores
@@ -12,13 +12,13 @@ const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_KEY
 
 // askGemini es una función asíncrona que envía un mensaje al modelo Gemini y devuelve la respuesta.
 export async function askGemini(messageHistory) {
-  const contents = messageHistory.map(msg => ({
-    role: msg.sender === "user" ? "user" : "assistant",
+  const content = messageHistory.map(msg => ({
+    role: msg.sender === "user" ? "user" : "model",
     parts: [{ text: msg.text }]
   }));
 
   const body = {
-    contents: contents
+    contents: content
   };
 
   const response = await fetchData(GEMINI_API_URL + GEMINI_API_KEY, {
@@ -27,6 +27,5 @@ export async function askGemini(messageHistory) {
     body: JSON.stringify(body)
   });
   
-  const reply = response.choices?.[0]?.message?.parts?.[0]?.text || errorMessage;
-  return reply;
+  return response.candidates?.[0]?.content?.parts?.[0]?.text ?? errorMessage
 }

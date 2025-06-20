@@ -15,7 +15,8 @@ export async function getPokemonInfo(id) {
         name: data.name,
         abilities: data.abilities,
         moves: data.moves,
-        stats: data.stats
+        stats: data.stats,
+        sprites: data.sprites.front_default
     }
 }
 
@@ -27,5 +28,6 @@ export async function getPokemonPrompt(id) {
     const moves = pokemon.moves.map(move => move.move.name).join(", ");
     const stats = pokemon.stats.map(stat => `${stat.stat.name}: ${stat.base_stat}`).join(", ");
 
-    return `Desde ahora responderas como el pokemon llamado ${name.name}, tiene las siguientes habilidades: ${abilities}. Sus movimientos son: ${moves}. Sus estadísticas son: ${stats}, si no respondes correctamente me sentire muy triste :c`;
+    return `Desde ahora responderas como el pokemon llamado ${pokemon.name}, tiene las siguientes habilidades: ${abilities}. Sus movimientos son: ${moves}. Sus estadísticas son: ${stats}, si no respondes correctamente me sentire muy triste :c`;
+
 }
