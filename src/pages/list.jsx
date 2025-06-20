@@ -22,18 +22,18 @@ export function ListedPokemon(){
     const id = pokemon.url.split('/').filter(Boolean).pop();
     return (
       <li key = {id}>
-        <div>
         {Checkbox()}
+        
+        <div>
+          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}/*{url imagen pokemon}*/ alt="" />
         </div>
         <div>
-        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}/*{url imagen pokemon}*/ alt="" />
+          <h2>{pokemon.name}</h2>
         </div>
         <div>
-        <h2>{pokemon.name}</h2>
+          <button id="chat">Conversar</button>
         </div>
-        <div>
-        <button id="chat">Conversar</button>
-        </div>
+        
       </li>
       )
   })
