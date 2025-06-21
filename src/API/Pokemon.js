@@ -2,13 +2,12 @@ import fetchData from "./handleErrors";
 
 const POKEDEX_URL = "https://pokeapi.co/api/v2/pokemon"
 
-export async function getPokemonList() {
-    return await fetchData(POKEDEX_URL)
+export async function getPokemonList(URL = POKEDEX_URL) {
+    return await fetchData(URL)
 }
 
 // id es un valor INT que representa el ID del Pokémon
-export async function getPokemonInfo(id) {
-    const URL = `${POKEDEX_URL}/${id}/`
+export async function getPokemonInfo(URL) {
     const data = await fetchData(URL)
 
     return {

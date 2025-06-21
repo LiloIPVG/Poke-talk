@@ -1,65 +1,66 @@
 import './list.css'
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import { getPokemonList } from '../API/Pokemon.js'
 import { getPokemonInfo } from '../API/Pokemon.js'
 import Checkbox from './icons/heart.jsx'
 
-let pokemons = [getPokemonList().results]
-
-export function ListedPokemon(){
-  /////No entiendo del todo esto////////
-  const [pokemons, setPokemons] = useState([]);
+function List() {
+  const [nextPage, setNextPage] = useState(null);
+  const [prevPage, setPrevPage] = useState(null);
+  const [list, setList] = useState([]);
+  const [details, setDetails] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
-      const data = await getPokemonList();
-      setPokemons(data.results);
-    }
-/////////
-    fetchData();
+    loadState();
   }, []);
-  let listPokemons = pokemons.map((pokemon) => {
-    const id = pokemon.url.split('/').filter(Boolean).pop();
-    return (
-      <li key = {id}>
-        {Checkbox()}
-        
-        <div>
-          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}/*{url imagen pokemon}*/ alt="" />
-        </div>
-        <div>
-          <h2>{pokemon.name}</h2>
-        </div>
-        <div>
-          <button id="chat">Conversar</button>
-        </div>
-        
-      </li>
-      )
-  })
-  return <ul>{listPokemons}</ul>;
-}
-//Funcion para primera letra mayuscula
-function capFirst(str) {
-  if (!str) return '';
-  str = String(str);
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
 
-export default function List() {
+  async function loadState(URL) {
+    try {
+      const pokemons = await getPokemonList(URL);
+      console.log(pokemons)
+      setNextPage(pokemons.next)
+      setPrevPage(pokemons.previous);
+      setList(pokemons.results);
 
-  return (
+      const pokemonDetails = pokemons.results.map(pokemon => getPokemonInfo(pokemon.url))
+      const resolverPromeses = await Promise.all(pokemonDetails);
+      setDetails(resolverPromeses);
+    } catch (error) {
+      console.error("Error al cargar la lista de Pokémon:", error);
+    }
+  }
+
+  if (list.length === 0 || details.length === 0) {
+    return <p>Cargando lista de Pokémon...</p>;
+  }
+  
+return (
     <>
-      <header><h1>Poke-talk</h1></header>
-      <div id="pokeList">
-        <ListedPokemon/>
-      </div>
+      <ul id="pokelist">
+        {details.map((info, index) => {
+          return (
+            <li key={info.id}>
+              {Checkbox()}
+              <div>
+                <img src={info.sprites} alt={info.name} />
+              </div>
+              <div>
+                <h2>{info.name.charAt(0).toUpperCase() + info.name.slice(1)}</h2>
+              </div>
+              <div>
+                <button id="chat">Conversar</button>
+              </div>
+            </li>
+          )
+        })}
+      </ul>
       <footer>
-        <button id="prev">Previous Page</button>
+        <button id="prev" onClick={() => loadState(prevPage)} disabled={!prevPage}>Previous Page</button>
         <p id="pagCount">a</p>
-        <button id="next">Next Page</button>
+        <button id="next" onClick={() => loadState(nextPage)} disabled={!nextPage}>Next Page</button>
     </footer>
     </>
   )
 }
 
+export default List;
