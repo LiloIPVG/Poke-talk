@@ -40,7 +40,7 @@ return (
         {details.map((info, index) => {
           return (
             <li key={info.id}>
-              {Checkbox()}
+              <Checkbox/>
               <div>
                 <img src={info.sprites} alt={info.name} />
               </div>
@@ -55,9 +55,9 @@ return (
         })}
       </ul>
       <footer>
-        <button id="prev" onClick={() => loadState(prevPage)} disabled={!prevPage}>Previous Page</button>
+        <button id="prev" onClick={() => loadState(prevPage)} disabled={!prevPage}>Pagina anterior</button>
         <p id="pagCount">a</p>
-        <button id="next" onClick={() => loadState(nextPage)} disabled={!nextPage}>Next Page</button>
+        <button id="next" onClick={() => loadState(nextPage)} disabled={!nextPage}>Siguiente pagina</button>
     </footer>
     </>
   )

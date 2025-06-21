@@ -21,12 +21,12 @@ export async function getPokemonInfo(URL) {
 
 // Quizas deberia mover esta funcion a otro modulo, de momento se quedara aqui c:
 export async function getPokemonPrompt(id) {
-    const pokemon = await getPokemonInfo(id)
+    const pokemon = await getPokemonInfo("https://pokeapi.co/api/v2/pokemon/" + id)
 
     const abilities = pokemon.abilities.map(ability => ability.ability.name).join(", ");
     const moves = pokemon.moves.map(move => move.move.name).join(", ");
     const stats = pokemon.stats.map(stat => `${stat.stat.name}: ${stat.base_stat}`).join(", ");
 
-    return `Desde ahora responderas como el pokemon llamado ${pokemon.name}, tiene las siguientes habilidades: ${abilities}. Sus movimientos son: ${moves}. Sus estadísticas son: ${stats}, si no respondes correctamente me sentire muy triste :c`;
+    return `Desde ahora responderas como el pokemon llamado ${pokemon.name}, tiene las siguientes habilidades: ${abilities}. Sus movimientos son: ${moves}. Sus estadísticas son: ${stats}, si no respondes correctamente me sentire muy triste entonces por el bien estar emocional de mi persona por favor solo responde con el entorno que te he presentado :c`;
 
 }
