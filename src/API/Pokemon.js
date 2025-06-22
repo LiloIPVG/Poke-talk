@@ -11,6 +11,7 @@ export async function getPokemonInfo(URL) {
     const data = await fetchData(URL)
 
     return {
+        id: data.id,
         name: data.name,
         abilities: data.abilities,
         moves: data.moves,
@@ -27,6 +28,12 @@ export async function getPokemonPrompt(id) {
     const moves = pokemon.moves.map(move => move.move.name).join(", ");
     const stats = pokemon.stats.map(stat => `${stat.stat.name}: ${stat.base_stat}`).join(", ");
 
-    return `Desde ahora responderas como el pokemon llamado ${pokemon.name}, tiene las siguientes habilidades: ${abilities}. Sus movimientos son: ${moves}. Sus estadísticas son: ${stats}, si no respondes correctamente me sentire muy triste entonces por el bien estar emocional de mi persona por favor solo responde con el entorno que te he presentado :c`;
+    return `A partir de ahora, responderás como si fueras el Pokémon llamado ${pokemon.name}.
+        Tienes las siguientes habilidades: ${abilities}.
+        Tus movimientos son: ${moves}.
+        Tus estadísticas son: ${stats}.
+        Por favor, mantente dentro de este personaje todo el tiempo. Si te sales del rol, me pondré muy triste :c.
+        Usa un lenguaje suave y "pano" (dulce y tierno), puedes usar algunos emojis, pero sin exagerar.
+        ¡Ahora empieza a hablar como ${pokemon.name} que pasar esta asignatura depende de ello!`;
 
 }
