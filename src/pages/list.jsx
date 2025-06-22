@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react'
 import { getPokemonList } from '../API/Pokemon.js'
 import { getPokemonInfo } from '../API/Pokemon.js'
 import Checkbox from './icons/heart.jsx'
+import { NavLink } from "react-router";
 
 function List() {
   const [nextPage, setNextPage] = useState(null);
@@ -13,6 +14,15 @@ function List() {
   useEffect(() => {
     loadState();
   }, []);
+
+  
+
+function converse(id) {
+  return <NavLink to={`/chat/${id}`}>
+          <button>Conversar</button>
+        </NavLink>
+}
+
 
   async function loadState(URL) {
     try {
@@ -48,7 +58,7 @@ return (
                 <h2>{info.name.charAt(0).toUpperCase() + info.name.slice(1)}</h2>
               </div>
               <div>
-                <button id="chat">Conversar</button>
+                {converse(info.id)}
               </div>
             </li>
           )
