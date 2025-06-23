@@ -6,6 +6,7 @@ import { NavLink } from "react-router"
 import PokemonList from '../components/PokemonList'
 import Footer from '../components/Footer'
 
+
 function List() {
   const [totalCount, setTotalCount] = useState()
   const [details, setDetails] = useState([])
