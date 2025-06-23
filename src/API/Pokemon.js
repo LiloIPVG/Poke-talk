@@ -2,16 +2,16 @@ import fetchData from "./handleErrors";
 
 const POKEDEX_URL = "https://pokeapi.co/api/v2/pokemon"
 
-export async function getPokemonList() {
-    return await fetchData(POKEDEX_URL)
+export async function getPokemonList(URL = POKEDEX_URL) {
+    return await fetchData(URL)
 }
 
 // id es un valor INT que representa el ID del Pokémon
-export async function getPokemonInfo(id) {
-    const URL = `${POKEDEX_URL}/${id}/`
+export async function getPokemonInfo(URL) {
     const data = await fetchData(URL)
 
     return {
+        id: data.id,
         name: data.name,
         abilities: data.abilities,
         moves: data.moves,
@@ -22,7 +22,7 @@ export async function getPokemonInfo(id) {
 
 // Quizas deberia mover esta funcion a otro modulo, de momento se quedara aqui c:
 export async function getPokemonPrompt(id) {
-    const pokemon = await getPokemonInfo(id)
+    const pokemon = await getPokemonInfo("https://pokeapi.co/api/v2/pokemon/" + id)
 
     const abilities = pokemon.abilities.map(ability => ability.ability.name).join(", ");
     const moves = pokemon.moves.map(move => move.move.name).join(", ");
